@@ -14,8 +14,10 @@ const Navbar = () => {
     <div className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
         <div className="container">
             <div className="left">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png
-                " alt="netflix logo" />
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png"
+                  alt="netflix logo"
+                />
                 <span>Homepage</span>
                 <span>Series</span>
                 <span>Movies</span>
