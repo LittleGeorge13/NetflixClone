@@ -20,6 +20,7 @@ const List = () => {
             listRef.current.style.transform = `translateX(${ -230 + distance }px)`
         }
     }
+    const array = Array.from({length: 10}, () => 0);
     
     return (
         <div className="list">
@@ -31,16 +32,11 @@ const List = () => {
                   style={{ display: !isMoved && "none" }}
                 />
                 <div className="container" ref={ listRef }>
-                    <ListItem />
-                    <ListItem />
-                    <ListItem />
-                    <ListItem />
-                    <ListItem />
-                    <ListItem />
-                    <ListItem />
-                    <ListItem />
-                    <ListItem />
-                    <ListItem />
+                    { array.map((item, index) => (
+                        <ListItem
+                          key={item+index}
+                          index={index} />
+                    ))}
                 </div>
                 <ArrowForwardIosOutlined className="sliderArrow right" onClick={ () => handleClick('right') } />
             </div>
