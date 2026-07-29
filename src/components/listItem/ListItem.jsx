@@ -1,24 +1,31 @@
 import { Add, PlayArrow, ThumbDownAltOutlined, ThumbUpAltOutlined } from "@material-ui/icons"
 import "./listItem.scss"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { getBaseUrl } from "../../../api-config";
+import axios from "axios";
+
+const baseURL = getBaseUrl();
 
 const ListItem = ({
     index,
+    movie
 }) => {
     const [isHovered, setIsHovered] = useState(false);
-    const trailer = "https://placeholdervideo.dev/1920x1080";
 
     return (
         <div
-          className="listItem"
-          style={{ left: isHovered && ((index * 225) - 50 + (index * 2.5)) }}
-          onMouseEnter={ () => setIsHovered(true) }
-          onMouseLeave={ () => setIsHovered(false) }
+            className="listItem"
+            style={{ left: isHovered && ((index * 225) - 50 + (index * 2.5)) }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
         >
-            <img src="https://preview.redd.it/poster-for-the-theatrical-re-release-of-hayao-miyazakis-v0-7rxxo4zi83zd1.jpeg?auto=webp&s=dd570c206057595f560320c4012eb26a509a4c50" alt="" />
-            { isHovered && (
+            <img
+                src={movie.img}
+                alt=""
+            />
+            {isHovered && (
                 <>
-                    <video src={ trailer } autoPlay={ true } loop/>
+                    <video src={movie.trailer} autoPlay={true} loop />
                     <div className="itemInfo">
                         <div className="icons">
                             <PlayArrow className="icon" />
@@ -27,14 +34,12 @@ const ListItem = ({
                             <ThumbDownAltOutlined className="icon" />
                         </div>
                         <div className="itemInfoTop">
-                            <span>1 hour 14 mins</span>
-                            <span className="limit">+12</span>
-                            <span>2000</span>
+                            <span>{movie.duration}</span>
+                            <span className="limit">+{movie.limit}</span>
+                            <span>{movie.year}</span>
                         </div>
-                        <div className="desc">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam corrupti, voluptatibus id quas dolore expedita obcaecati architecto explicabo eos officia
-                        </div>
-                        <div className="genre">Action</div>
+                        <div className="desc">{movie.desc}</div>
+                        <div className="genre">{movie.genre}</div>
                     </div>
                 </>
             )}

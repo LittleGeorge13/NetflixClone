@@ -3,18 +3,52 @@ import "./home.scss"
 import Navbar from "../../components/navbar/Navbar"
 import Featured from "../../components/featured/Featured"
 import List from "../../components/list/List"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import { getBaseUrl } from "../../../api-config"
+
+const baseURL = getBaseUrl();
 
 const Home = ({
   type
 }) => {
+  const [lists, setLists] = useState([]);
+  const [genre, setGenre] = useState(null);
+
+  useEffect(() => {
+    const getRandomLists = async () => {
+      try {
+        let url = '';
+        if (type && !genre) {
+          url = `/lists?type=${type}`;
+        } else if (!type && genre) {
+          url = `/lists?genre=${genre}`;
+        } else if (type && genre) {
+          url = `/lists?type=${type}&genre=${genre}`;
+        } else {
+          url = '/lists';
+        }
+        const res = await axios.get(baseURL + url, {
+          headers: {
+            token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNjhkN2ZhNTZjMDk0MmRmZTliMWFhZSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc4NTM0NTA2MywiZXhwIjoxNzg1Nzc3MDYzfQ.aIURJ3D5PdHUgmuUq6z863a6CjLhucWxczeXYFmtvm8'
+          }
+        });
+        setLists(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getRandomLists();
+  }, [type, genre]);
   return (
     <div className='home'>
         <Navbar/>
         <Featured type={ type } />
-        <List />
-        <List />
-        <List />
-        <List />
+        { lists.map(list => {
+          return (
+            <List key={list._id} list={ list }/>
+          );
+        }) }
     </div>
   )
 }

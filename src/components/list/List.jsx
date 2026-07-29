@@ -3,7 +3,7 @@ import "./list.scss"
 import ListItem from "../listItem/ListItem"
 import { useRef, useState } from "react"
 
-const List = () => {
+const List = ({ list }) => {
     const [slideNumber, setSlideNumber] = useState(0);
     const [isMoved, setIsMoved] = useState(false);
     const listRef = useRef();
@@ -20,11 +20,10 @@ const List = () => {
             listRef.current.style.transform = `translateX(${ -230 + distance }px)`
         }
     }
-    const array = Array.from({length: 10}, () => 0);
     
     return (
         <div className="list">
-            <span className="listTitle">Continue to watch</span>
+            <span className="listTitle">{ list.title }</span>
             <div className="wrapper">
                 <ArrowBackIosOutlined
                   className="sliderArrow left"
@@ -32,10 +31,12 @@ const List = () => {
                   style={{ display: !isMoved && "none" }}
                 />
                 <div className="container" ref={ listRef }>
-                    { array.map((item, index) => (
+                    { list.content.map((movie, index) => (
                         <ListItem
-                          key={item+index}
-                          index={index} />
+                          key={index}
+                          index={index}
+                          movie={movie}
+                        />
                     ))}
                 </div>
                 <ArrowForwardIosOutlined className="sliderArrow right" onClick={ () => handleClick('right') } />
