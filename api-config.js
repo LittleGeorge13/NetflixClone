@@ -6,6 +6,6 @@ export const getBaseUrl = () => {
     if (env === 'development') {
         return 'http://localhost:8800';
     } else { 
-        return 'UNKNOWN';
+        return 'https://netflix-api-wkaj.onrender.com';
     }
 }
