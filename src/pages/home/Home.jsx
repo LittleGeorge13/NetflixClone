@@ -28,9 +28,10 @@ const Home = ({
         } else {
           url = '/lists';
         }
+        const user = JSON.parse(localStorage.getItem('user'));
         const res = await axios.get(baseURL + url, {
           headers: {
-            token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNjhkN2ZhNTZjMDk0MmRmZTliMWFhZSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc4NTM0NTA2MywiZXhwIjoxNzg1Nzc3MDYzfQ.aIURJ3D5PdHUgmuUq6z863a6CjLhucWxczeXYFmtvm8'
+            token: 'Bearer ' + user.accessToken
           }
         });
         setLists(res.data);
@@ -43,7 +44,7 @@ const Home = ({
   return (
     <div className='home'>
         <Navbar/>
-        <Featured type={ type } />
+        <Featured type={ type } setGenre={ setGenre } />
         { lists.map(list => {
           return (
             <List key={list._id} list={ list }/>

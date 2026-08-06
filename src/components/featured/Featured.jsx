@@ -8,15 +8,17 @@ const baseURL = getBaseUrl();
 
 const Featured = ({
   type,
+  setGenre,
 }) => {
   const [content, setContent] = useState({});
 
   useEffect(() => {
     const getRandomContent = async () => {
       try {
+        const user = JSON.parse(localStorage.getItem('user'));
         const res = await axios.get(baseURL + `/movies/random?type=${type}`, {
           headers: {
-            token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNjhkN2ZhNTZjMDk0MmRmZTliMWFhZSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc4NTM0NTA2MywiZXhwIjoxNzg1Nzc3MDYzfQ.aIURJ3D5PdHUgmuUq6z863a6CjLhucWxczeXYFmtvm8'
+            token: 'Bearer ' + user.accessToken
           }
         });
         setContent(res.data[0]);
@@ -31,9 +33,9 @@ const Featured = ({
       {type && (
         <div className="category">
           <span>{type === 'movies' ? "Movies" : "Series"}</span>
-          <select name="genre" id="genre">
+          <select name="genre" id="genre" onChange={e => setGenre(e.target.value)}>
             <option>Genre</option>
-            <option value="adventure">Adenture</option>
+            <option value="adventure">Adventure</option>
             <option value="comedy">Comedy</option>
             <option value="crime">Crime</option>
             <option value="fantasy">Fantasy</option>

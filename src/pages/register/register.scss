@@ -11,6 +11,9 @@
     width: 100%;
 
     .top {
+        position: relative;
+        z-index: 2;
+
         .wrapper {
             align-items: center;
             display: flex;
@@ -30,6 +33,7 @@
                 font-size: 16px;
                 font-weight: 500;
                 padding: 5px 15px;
+                text-decoration: none;
             }
         }
     }
