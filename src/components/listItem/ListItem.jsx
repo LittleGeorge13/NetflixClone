@@ -1,4 +1,4 @@
-import { Add, PlayArrow, ThumbDownAltOutlined, ThumbUpAltOutlined } from "@material-ui/icons"
+import { Add, PlayArrow, ThumbDownAltOutlined, ThumbUpAltOutlined } from "@mui/icons-material"
 import "./listItem.scss"
 import { useEffect, useState } from "react"
 import { getBaseUrl } from "../../../api-config";
